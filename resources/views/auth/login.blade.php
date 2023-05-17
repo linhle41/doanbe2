@@ -2,7 +2,7 @@
  @section('content')
     <div class="form-tt">
         <h2>Đăng nhập</h2>
-        <form action="{{ route('login.custom') }}" method="post" name="dangnhap">
+        <form action="" method="post" name="dangnhap">
             @csrf
             <input type="text" name="name" placeholder="Name" required autofocus>
             @if ($errors->has('name'))
@@ -20,7 +20,7 @@
             <input type="submit" name="submit" value="Đăng nhập" />
             <div style = " display: flex; justify-content: flex-end;">
                 <a href="{{ route('forget.password') }}" class="psw-text" >Quên mật khẩu</a>
-                <a href="{{ route('register-user') }}" class="psw-text" style="color: pink;">Đăng Ký</a>
+                <a href="" class="psw-text" style="color: pink;">Đăng Ký</a>
 
             </div>
         </form>

@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Login
+use App\Http\Controllers\CustomAuthController;
+
+Route::get('/login', [CustomAuthController::class, 'index'])->name('login');
+
+
+
+//reset password
+
+use App\Http\Controllers\ForgetPasswordController;
+
+Route::get('forgetpassword', [ForgetPasswordController::class, 'forget_password'])->name('forget.password'); 
+Route::post('login', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('resetpassword'); 
