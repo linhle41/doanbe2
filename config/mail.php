@@ -40,7 +40,7 @@ return [
             'port' =>  587,
             'encryption' => 'tls',
             'username' => 'nguyenvanphuoc.261203@gmail.com',
-            'password' => 'phuoc12345',
+            'password' => 'xqvarxcyxqxymbcg',//mật khẩu google ứng dụng
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
