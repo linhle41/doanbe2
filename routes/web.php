@@ -26,3 +26,14 @@ use App\Http\Controllers\ForgetPasswordController;
 
 Route::get('forgetpassword', [ForgetPasswordController::class, 'forget_password'])->name('forget.password'); 
 Route::post('login', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('resetpassword'); 
+
+
+
+use App\Http\Controllers\ProductController;
+//admin about Product
+Route::get('admin/product', [ProductController::class, 'getProduct']);
+Route::get('admin/productadd', [ProductController::class, 'productadd'])->name('admin/productadd');
+Route::post('admin/product', [ProductController::class, 'AddProduct'])->name('admin.product');
+Route::get('admin/productedit/{id}', [ProductController::class, 'editproduct']);
+Route::post('admin/productedit/{id}', [ProductController::class, 'update']);
+Route::get('admin/product_detail/{id}', [ProductController::class, 'viewDetailProduct'])->name('view_productdetail');
