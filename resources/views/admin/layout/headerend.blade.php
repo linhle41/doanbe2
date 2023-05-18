@@ -73,14 +73,14 @@ table, th, td {
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
-        <div class="navbar-search-block">
+         <div class="navbar-search-block">
           <form action ="" class="form-inline" method = "post">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" name ="keyword" placeholder="Search" aria-label="Search">
+               <input class="form-control form-control-navbar" type="search" name ="keyword" placeholder="Search" aria-label="Search"> 
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -88,11 +88,11 @@ table, th, td {
                 <button class="btn btn-navbar" type="button" data-widget="navbar-search">
                   <i class="fas fa-times"></i>
                 </button>
-              </div>
+              </div> 
             </div>
           </form>
-        </div>
-      </li>
+        </div> 
+      </li> -->
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -214,7 +214,7 @@ table, th, td {
         </div>
         <div class="info">
           <a href="#" class="d-block">Phuoc</a>
-          <a href="{{ route('signout') }}" class="d-block" style = "color: aqua ">Logout</a>
+          <a href="" class="d-block" style = "color: aqua ">Logout</a>
         </div>
       </div>
 
@@ -250,19 +250,19 @@ table, th, td {
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/manu')}}" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Manufacture</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/protype')}}" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Protype</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/user')}}" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>User</p>
             </a>
