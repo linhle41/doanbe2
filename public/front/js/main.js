@@ -192,79 +192,7 @@
 	
 })(jQuery);
 
-//xóa sản phẩm
-function removeCart(rowId){
-		//kiểm tra csrf token
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			type: "GET",
-			url: "/cart/delete",
-			data: {rowId: rowId},
-			success: function (response){
-				// Xử lý khi thành công
-				const amount = response['total'];
-				const options = { style: 'currency', currency: 'VND' };
-				const formattedAmount = amount.toLocaleString('vi-VN', options);
-		
-				$('.cart-summary small').text(response['count'] + " Item(s) selected");
-				$('.dropdown .qty').text(response['count']);
-				$('.cart-dropdown .product-price').text(formattedAmount);
-				$('.cart-summary h5').text('SUBTOTAL: ' + formattedAmount + ' VND');
-				// Xử lý trong trang cart
-				var cart_products = $('.giohang');
-				var cart_productItem = cart_products.find(".giohang .sanpham" + "[data-rowId='" + rowId + "']");
-				cart_productItem.remove();
-				// Xử lý ở trang master
-				var cart_tbody = $('.cart-list');
-				var cart_exitItem = cart_tbody.find(".product-widget" + "[data-rowId='" + rowId + "']");
-				cart_exitItem.remove();
-				alert('Delete successful!');
-				
-			},
-			error: function (response){
-				alert('Delete failed');
-				console.log(response);
-			}
-		})
-}
 
-//update cart product
-function updateCart(rowId,qty){
-	$.ajax({
-		type:"GET",
-		url: "cart/update",
-		data:{rowId: rowId, qty: qty},
-		success: function(response){
-			// xử lí price
-			const amount = response['total'];
-			const options = { style: 'currency', currency: 'VND' };
-			const formattedAmount = amount.toLocaleString('vi-VN', options);
-			//update value
-			// $('.sanpham_price .product-price').text(formattedAmount + "VND");
-			$('.sanpham_name .quantity').val(qty);//thiết lập giá trị value
 
-			// Xử lý trong trang cart
-			var cart_products = $('.giohang');
-			var cart_productItem = cart_products.find(".giohang .sanpham" + "[data-rowid='" + rowId + "']");
-			cart_productItem.find('.sanpham_name .quantity').val(qty);
-
-			// Xử lý ở trang master
-			var cart_tbody = $('.cart-list');
-			var cart_exitItem = cart_tbody.find(".product-widget" + "[data-rowid='" + rowId + "']");
-		    cart_exitItem.find('.product-body  .product-price').html(`<span class="qty">${qty}x</span>${response['productPrice'] * qty}`);
-			$('.cart-summary small').text(response['count'] + " Item(s) selected");
-			 $('.cart-summary h5').text('SUBTOTAL: ' + formattedAmount + ' VND');
-			alert('Update successful!');
-		},
-		error: function (response){
-			alert('Update failed');
-			console.log(response);
-		}
-	})
-}
 
 

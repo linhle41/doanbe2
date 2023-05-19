@@ -86,16 +86,20 @@
 								<span class="product-available">In Stock</span>
 							</div>
 							<p>{{$productdetail->description}}</p>
-							<form action="" method="post">
+							<form action="{{route('add_detailpro',['id' => $productdetail->id] )}}" method="post">
 								@csrf
 								<div class="product-options">
 									<label>
 										Size
-										<select class="input-select">
-											@foreach($detail as $value)
-											<option value="{{$value->size}}">{{$value->size}}</option>
-											@endforeach
-										</select>
+										@if(count($detail)>0)
+											<select class="input-select">
+												@foreach($detail as $value)
+													<option value="{{$value->size}}">{{$value->size}}</option>
+												@endforeach
+											</select>
+										@else
+											<input class="input-select" type="number" name="size" id="size"  min=0 max=45>
+										@endif
 									</label>
 									<label style="width:100px">
 										<div class="qty-label">
