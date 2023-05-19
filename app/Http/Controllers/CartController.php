@@ -31,7 +31,19 @@ class CartController extends Controller
             )
         ]);
         //Cart::destroy();
-        //dd(Cart::content());
+        dd(Cart::content());
         return redirect()->back();
+    }
+    //xóa giỏ hàng
+    public function delete(Request $request){
+        if($request->ajax()){
+            $response['cart'] = Cart::remove($request->rowId);
+            $response['count'] = Cart::count();
+            $response['total'] = Cart::total();
+            $response['subtotal'] = Cart::subtotal();
+
+            return $response;
+        }
+        return back();
     }
 }

@@ -192,7 +192,42 @@
 	
 })(jQuery);
 
-
+//xóa sản phẩm
+function removeCart(rowId){
+	//kiểm tra csrf token
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+	$.ajax({
+		type: "GET",
+		url: "/cart/delete",
+		data: {rowId: rowId},
+		success: function (response){
+			// Xử lý khi thành công
+			const amount = response['total'];
+			const options = { style: 'currency', currency: 'VND' };
+			const formattedAmount = amount.toLocaleString('vi-VN', options);
+	
+			$('.cart-summary small').text(response['count'] + " Item(s) selected");
+			$('.dropdown .qty').text(response['count']);
+			$('.cart-dropdown .product-price').text(formattedAmount);
+			$('.cart-summary h5').text('SUBTOTAL: ' + formattedAmount + ' VND');
+			
+			// Xử lý ở trang master
+			var cart_tbody = $('.cart-list');
+			var cart_exitItem = cart_tbody.find(".product-widget" + "[data-rowId='" + rowId + "']");
+			cart_exitItem.remove();
+			alert('Delete successful!');
+			
+		},
+		error: function (response){
+			alert('Delete failed');
+			console.log(response);
+		}
+	})
+}
 
 
 
