@@ -167,7 +167,7 @@
 									<div class="cart-dropdown">
 										<div class="cart-list">
 											@foreach(Cart::content() as $item)
-											<div class="product-widget" >
+											<div class="product-widget" data-rowid="{{ $item->rowId}}">
 												<div class="product-img">
 													<img src="{{asset('front/img/'.$item->options->image)}}" alt="">
 												</div>
@@ -179,7 +179,7 @@
 													<h4 class="product-price"><span class="qty" >{{$item->qty}}x</span>{{number_format(($item->price * ((100 - $item->discount)/100)) * $item->qty)}}</h4>
 													@endif
 												</div>
-												<button class="delete" ><i class="fa fa-close"></i></button>
+												<button class="delete" onclick="removeCart('{{$item->rowId}}')"><i class="fa fa-close"></i></button>
 											</div>
 											@endforeach
 										</div>

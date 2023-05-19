@@ -65,3 +65,5 @@ Route::get('store?type_id={id}', [StoreController::class, 'getProductStore'])->n
 use App\Http\Controllers\CartController;
 Route::get('cart/add/{id}', [CartController::class, 'add']);
 Route::post('product/add/{id}', [CartController::class, 'add'])->name('add_detailpro');
+
+Route::get('/cart/delete', [CartController::class, 'delete']);
