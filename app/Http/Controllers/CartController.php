@@ -31,7 +31,7 @@ class CartController extends Controller
             )
         ]);
         //Cart::destroy();
-        dd(Cart::content());
+        //dd(Cart::content());
         return redirect()->back();
     }
     //xóa giỏ hàng
