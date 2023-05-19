@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 
-@section('title', 'Checkout')
+@section('title', 'Store')
 
 @section('body')
 
@@ -59,14 +59,19 @@
 							<div class="aside category">
 								<h3 class="aside-title">Categories</h3>
 								<div class="checkbox-filter">
+								@foreach($typeList as $value)
 									<div class="input-checkbox">
-										<input type="checkbox" >
-										<label for="category-">
+										<input type="checkbox" 
+										{{ (request('category')[$value->id] ?? '') == 'on' ? 'checked' : ''}}
+										id="category-{{$value->id}}" name="category[{{$value->id}}]" onchange="this.form.submit()" '>
+										<label for="category-{{$value->id}}">
 											<span></span>
-											
-											<small></small>
+											{{$value->type_name}}
+											<small>({{$value->count}})</small>
 										</label>
 									</div>
+
+									@endforeach
 
 								
 								</div>
@@ -101,7 +106,18 @@
 							<div class="aside">
 								<h3 class="aside-title">Brand</h3>
 								<div class="checkbox-filter">
-									
+								<!-- hãng sản phẩm -->
+								@foreach($manufactureCounts as $value)
+									<div class="input-checkbox">
+										<input type="checkbox" {{ (request('brand')[$value->id] ?? '') == 'on' ? 'checked' : ''}}
+										id="brand-{{$value->id}}" name="brand[{{$value->id}}]" onchange="this.form.submit()" >
+										<label for="brand-{{$value->id}}">
+											<span></span>
+											{{$value->manu_name}}
+											<small>({{$value->count}})</small>
+										</label>
+									</div>
+									@endforeach
 								</div>
 							</div>
 							<!-- /aside Widget -->
@@ -109,7 +125,19 @@
 							<!-- aside Widget -->
 							<div class="aside">
 								<h3 class="aside-title">Top selling</h3>
-								
+								@foreach($productsofSelling as $item)
+								<div class="product-widget">
+									<div class="product-img">
+										<img src="{{asset('front/img/'.$item->image)}}" alt="">
+									</div>
+									<div class="product-body">
+										<p class="product-category">Category</p>
+										<h3 class="product-name"><a href="{{ url('product/'.$item->id) }}">{{substr($item->name,0,30)}}</a></h3>
+										<h4 class="product-price">{{$item->price * ((100 - $item->discount)/100) }} <del class="product-old-price">{{$item->price}}</del></h4>
+									</div>
+								</div>
+
+								@endforeach
 							</div>
 							<!-- /aside Widget -->
 					</div>
