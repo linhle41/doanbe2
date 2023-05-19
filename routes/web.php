@@ -59,3 +59,9 @@ use App\Http\Controllers\StoreController;
 
 Route::get('store', [StoreController::class, 'getProductStore'])->name('viewstore');
 Route::get('store?type_id={id}', [StoreController::class, 'getProductStore'])->name('viewStoreOfType');
+
+
+//Cart
+use App\Http\Controllers\CartController;
+Route::get('cart/add/{id}', [CartController::class, 'add']);
+Route::post('product/add/{id}', [CartController::class, 'add'])->name('add_detailpro');

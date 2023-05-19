@@ -162,26 +162,30 @@
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
-										<div class="qty">3</div>
+										<div class="qty">{{Cart::content()->count()}}</div>
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											<div class="product-widget" data-rowid="">
+											@foreach(Cart::content() as $item)
+											<div class="product-widget" >
 												<div class="product-img">
-													<img src="" alt="">
+													<img src="{{asset('front/img/'.$item->options->image)}}" alt="">
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href=""></a></h3>
-													
-													<h4 class="product-price"><span class="qty" >x</span></h4>
-													
+													<h3 class="product-name"><a href="{{ url('product/'.$item->id) }}">{{substr($item->name,0,50)}}</a></h3>
+													@if($item->discount == 0)
+													<h4 class="product-price"><span class="qty"  >{{$item->qty}}x</span>{{number_format($item->price * $item->qty)}}</h4>
+													@else
+													<h4 class="product-price"><span class="qty" >{{$item->qty}}x</span>{{number_format(($item->price * ((100 - $item->discount)/100)) * $item->qty)}}</h4>
+													@endif
 												</div>
-												<button class="delete" onclick="removeCart('')"><i class="fa fa-close"></i></button>
+												<button class="delete" ><i class="fa fa-close"></i></button>
 											</div>
+											@endforeach
 										</div>
 										<div class="cart-summary">
-											<small> Item(s) selected</small>
-											<h5>SUBTOTAL:  VND</h5>
+											<small>{{Cart::count()}} Item(s) selected</small>
+											<h5>SUBTOTAL: {{Cart::total()}} VND</h5>
 										</div>
 										<div class="cart-btns">
 											<a href=""><i class="fa fa-arrow-circle-left"></i>  View Cart</a>
