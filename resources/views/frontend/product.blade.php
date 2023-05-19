@@ -12,7 +12,7 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-					<li class="active"><a href="">Home</a></li>
+					<li class="active"><a href="{{url('/')}}">Home</a></li>
 						@foreach($typeList as $value)
 							<li ><a href="{{route('viewStoreOfType',['id'=>$value->id])}}">{{$value->type_name}}</a></li>
 						@endforeach
