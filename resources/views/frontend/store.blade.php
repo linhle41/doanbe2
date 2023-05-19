@@ -12,8 +12,10 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-					<li class="active"><a href="">Home</a></li>
-					
+					<li class="active"><a href="{{url('/')}}">Home</a></li>
+						@foreach($typeList as $value)
+							<li ><a href="{{route('viewStoreOfType',['id'=>$value->id])}}">{{$value->type_name}}</a></li>
+						@endforeach
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -31,8 +33,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">All Categories</a></li>
+							<li><a href="{{url('/')}}">Home</a></li>
+							<li><a href="{{url('/store')}}">All Categories</a></li>
 							<li class="active">Headphones (227,490 Results)</li>
 						</ul>
 					</div>
@@ -170,30 +172,29 @@
 						<!-- store products -->
 						<div class="row">
 							<!-- product -->
-						
+							@foreach($products as $item)
+								<div class="col-md-4 col-xs-6 products-tabs">
+								@include('frontend/layout/viewproduct')
+								</div>
+							@endforeach
 							<!-- /product -->
 
-							<!-- product -->
-							
-							<!-- /product -->
-
-							
 						</div>
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
+						<span class="store-qty">Showing 20-100 products</span>
 							<div style="text-align: end;">
-								
+								{{ $products->appends(request()->query())->links('pagination::bootstrap-4')}}
 							</div>
-							<ul class="store-pagination">
+							<!-- <ul class="store-pagination">
 								<li class="active">1</li>
 								<li><a href="#">2</a></li>
 								<li><a href="#">3</a></li>
 								<li><a href="#">4</a></li>
 								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
+							</ul> -->
 						</div>
 						<!-- /store bottom filter -->
 					</div>
