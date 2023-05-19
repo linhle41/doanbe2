@@ -98,9 +98,7 @@
 												@endforeach
 											</select>
 										@else
-											<select class="input-select">
-												<option value="39">39</option>
-											</select>
+											<input class="input-select" type="number" name="size" id="size"  min=0 max=45>
 										@endif
 									</label>
 									<label style="width:100px">
