@@ -59,7 +59,7 @@
 								<div class="checkbox-filter">
 									<div class="input-checkbox">
 										<input type="checkbox" >
-										<label for="category-{{$value->id}}">
+										<label for="category-">
 											<span></span>
 											
 											<small></small>

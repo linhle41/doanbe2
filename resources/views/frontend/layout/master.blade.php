@@ -74,9 +74,9 @@
 								<div class="cart-dropdown" style="width: 150px;">
 									<div class="profile-list">
 									@if (session('id_user'))
-									<a href="{{ url('profile/'.session('id_user')) }}">View Account</a><br>
+									<a href="">View Account</a><br>
 									@endif
-										<a href="{{ route('signout') }}">Logout  <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="">Logout  <i class="fa fa-arrow-circle-right"></i></a>
 								</div>
 							</div>
 						</div>
@@ -107,7 +107,7 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form action="{{route('search')}}" style="display: flex;">
+								<form action="" style="display: flex;">
 								@csrf
 									<select class="input-select" name="search">
 										<option value="0">All Categories</option>
@@ -140,22 +140,18 @@
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											@foreach(Cart::content() as $item)
 											<div class="product-widget" >
 												<div class="product-img">
-													<img src="{{asset('front/img/'.$item->options->image)}}" alt="">
+													<img src="" alt="">
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href="{{ url('product/'.$item->id) }}">{{substr($item->name,0,50)}}</a></h3>
-													@if($item->discount == 0)
-													<h4 class="product-price"><span class="qty">{{$item->qty}}x</span>{{number_format($item->price * $item->qty)}}</h4>
-													@else
-													<h4 class="product-price"><span class="qty">{{$item->qty}}x</span>{{number_format(($item->price * ((100 - $item->discount)/100)) * $item->qty)}}</h4>
-													@endif
+													<h3 class="product-name"><a href=""></a></h3>
+													
+													<h4 class="product-price"><span class="qty">x</span></h4>
+													
 												</div>
 												<button class="delete"  ><i class="fa fa-close"></i></button>
 											</div>
-											@endforeach
 										</div>
 									</div>
 								</div>
@@ -166,34 +162,30 @@
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
-										<div class="qty">{{Cart::content()->count()}}</div>
+										<div class="qty">3</div>
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											@foreach(Cart::content() as $item)
-											<div class="product-widget" data-rowid="{{ $item->rowId}}">
+											<div class="product-widget" data-rowid="">
 												<div class="product-img">
-													<img src="{{asset('front/img/'.$item->options->image)}}" alt="">
+													<img src="" alt="">
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href="{{ url('product/'.$item->id) }}">{{substr($item->name,0,50)}}</a></h3>
-													@if($item->discount == 0)
-													<h4 class="product-price"><span class="qty"  >{{$item->qty}}x</span>{{number_format($item->price * $item->qty)}}</h4>
-													@else
-													<h4 class="product-price"><span class="qty" >{{$item->qty}}x</span>{{number_format(($item->price * ((100 - $item->discount)/100)) * $item->qty)}}</h4>
-													@endif
+													<h3 class="product-name"><a href=""></a></h3>
+													
+													<h4 class="product-price"><span class="qty" >x</span></h4>
+													
 												</div>
-												<button class="delete" onclick="removeCart('{{$item->rowId}}')"><i class="fa fa-close"></i></button>
+												<button class="delete" onclick="removeCart('')"><i class="fa fa-close"></i></button>
 											</div>
-											@endforeach
 										</div>
 										<div class="cart-summary">
-											<small>{{Cart::count()}} Item(s) selected</small>
-											<h5>SUBTOTAL: {{Cart::total()}} VND</h5>
+											<small> Item(s) selected</small>
+											<h5>SUBTOTAL:  VND</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="{{ url('cart') }}"><i class="fa fa-arrow-circle-left"></i>  View Cart</a>
-											<a href="{{ url('checkout') }}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+											<a href=""><i class="fa fa-arrow-circle-left"></i>  View Cart</a>
+											<a href="">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
@@ -284,7 +276,7 @@
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
 								@foreach($typeList as $value)
-								<li ><a href="#">{{$value->type_name}}</a></li>
+								<li ><a href="{{route('viewStoreOfType',['id'=>$value->id])}}">{{$value->type_name}}</a></li>
 								@endforeach
 								</ul>
 							</div>
