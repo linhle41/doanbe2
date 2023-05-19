@@ -13,7 +13,9 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
 					<li class="active"><a href="">Home</a></li>
-						
+						@foreach($typeList as $value)
+							<li ><a href="{{route('viewStoreOfType',['id'=>$value->id])}}">{{$value->type_name}}</a></li>
+						@endforeach
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -31,9 +33,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="">Home</a></li>
-							<li><a href="">All Categories</a></li>
-							<li class="active"></li>
+							<li><a href="{{url('/')}}">Home</a></li>
+							<li><a href="{{route('viewstore')}}">All Categories</a></li>
+							<li class="active">{{substr($productdetail->name,0,50)}}</li>
 						</ul>
 					</div>
 				</div>
@@ -53,7 +55,7 @@
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src="{{asset('front/img/hinh4.png')}}" alt="">
+								<img src="{{asset('front/img/'.$productdetail->image)}}" alt="">
 							</div>
 						</div>
 					</div>
@@ -68,7 +70,7 @@
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">product name goes here</h2>
+							<h2 class="product-name">{{$productdetail->name}}</h2>
 							<div>
 								<div class="product-rating">
 									<i class="fa fa-star"></i>
@@ -77,20 +79,22 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o"></i>
 								</div>
-								<a class="review-link" href="#tab3"> Review(s) | Add your review</a>
+								<a class="review-link" href="#tab3">{{$totalComments}} Review(s) | Add your review</a>
 							</div>
 							<div>
-								<h3 class="product-price">180000 <del class="product-old-price">200000</del></h3>
+								<h3 class="product-price">{{$productdetail->price * ((100-$productdetail->discount)/100) }} <del class="product-old-price">{{$productdetail->price}}</del></h3>
 								<span class="product-available">In Stock</span>
 							</div>
-							<p></p>
+							<p>{{$productdetail->description}}</p>
 							<form action="" method="post">
 								@csrf
 								<div class="product-options">
 									<label>
 										Size
 										<select class="input-select">
-											
+											@foreach($detail as $value)
+											<option value="{{$value->size}}">{{$value->size}}</option>
+											@endforeach
 										</select>
 									</label>
 									<label style="width:100px">
@@ -138,7 +142,7 @@
 							<ul class="tab-nav">
 								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
 								<li><a data-toggle="tab" href="#tab2">Details</a></li>
-								<li><a data-toggle="tab" href="#tab3">Reviews ()</a></li>
+								<li><a data-toggle="tab" href="#tab3">Reviews ({{count($comments)}})</a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -148,7 +152,7 @@
 								<div id="tab1" class="tab-pane fade in active">
 									<div class="row">
 										<div class="col-md-12">
-											<p></p>
+											<p>{{$productdetail->description}}</p>
 										</div>
 									</div>
 								</div>
@@ -158,7 +162,11 @@
 								<div id="tab2" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-md-12">
-										
+										<h4 style ="text-align: center; color: aqua">Tên: {{$productdetail->name}}</h4>
+											<p><b> Mô Tả:</b> {{$productdetail->description}}</p>
+											<p><b> Thể Loại :</b>{{$productdetail -> type_name}}</p>
+											<p><b> Hãng :</b>{{$productdetail -> manu_name}}</p>
+											<p><b> Thời Gian Ra Mắt :</b>{{$productdetail->created_at}}</p>
 										</div>
 									</div>
 								</div>
@@ -255,19 +263,38 @@
 										<div class="col-md-6">
 											<div id="reviews">
 												<ul class="reviews">
-													
+													@foreach($comments as $item)
+													<li>
+														<div class="review-heading">
+															<h5 class="name">{{$item->name_reviewer}}</h5>
+															<p class="date">{{$item->created_at}}</p>
+															<div class="review-rating">
+																@for($i = 1; $i <= 5;$i++)
+																	@if($i <= $item->rating)
+																	<i class="fa fa-star"></i>
+																	@else
+																	<i class="fa fa-star-o empty"></i>
+																	@endif
+																@endfor
+															</div>
+														</div>
+														<div class="review-body">
+															<p>{{$item->content}}</p>
+														</div>
+													</li>
+													@endforeach
 												</ul>
 											    <!-- <ul class="reviews-pagination"> -->
 													<div style="text-align: center;">
-													
+													{{ $comments->links('pagination::bootstrap-4')}}
 													</div>
-												<ul>
-													<li class="active">1</li>
+													
+													<!-- <li class="active">1</li>
 													<li><a data-toggle="tab" href="#page=2" >2</a></li>
 													<li><a href="#">3</a></li>
 													<li><a href="#">4</a></li>
-													<li><a href="#"><i class="fa fa-angle-right"></i></a></li> 
-												</ul> 
+													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>  -->
+												<!-- </ul>  -->
 											</div>
 										</div>
 										<!-- /Reviews -->
@@ -275,7 +302,7 @@
 										<!-- Review Form -->
 										<div class="col-md-3">
 											<div id="review-form">
-												<form class="review-form" action="" method="post">
+												<form class="review-form" action="{{route('add_reviewer',['id' => $productdetail->id])}}" method="post">
 													@csrf
 													<input class="input" type="text" name="name" placeholder="Your Name" required>
 													<input class="input" type="email" name="email"  placeholder="Your Email" required>
@@ -324,7 +351,11 @@
 					</div>
 
 					<!-- product -->
-					
+					@foreach($productOfBrand as $item)
+					<div class="col-md-3 col-xs-6 products-tabs">
+					@include('frontend/layout/viewproduct')
+					</div>
+					@endforeach
 					<!-- /product -->
 
 					<div class="clearfix visible-sm visible-xs"></div>

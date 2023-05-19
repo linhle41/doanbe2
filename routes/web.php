@@ -37,3 +37,25 @@ Route::post('admin/product', [ProductController::class, 'AddProduct'])->name('ad
 Route::get('admin/productedit/{id}', [ProductController::class, 'editproduct']);
 Route::post('admin/productedit/{id}', [ProductController::class, 'update']);
 Route::get('admin/product_detail/{id}', [ProductController::class, 'viewDetailProduct'])->name('view_productdetail');
+
+
+
+use App\Http\Controllers\IndexController;
+//Page Index
+Route::get('/', [IndexController::class, 'getTypeIndex']);
+
+
+
+use App\Http\Controllers\ProductDetailController;
+//Page Product
+
+Route::post('product/{id}', [ProductDetailController::class, 'viewProduct']);
+Route::post('/product/{id}/add_reviewer',[ProductDetailController::class, 'AddReviewer'])->name('add_reviewer');
+Route::get('/product/{id}', [ProductDetailController::class, 'viewProduct'])->name('product_detail');
+
+
+use App\Http\Controllers\StoreController;
+//Page Product
+
+Route::get('store', [StoreController::class, 'getProductStore'])->name('viewstore');
+Route::get('store?type_id={id}', [StoreController::class, 'getProductStore'])->name('viewStoreOfType');

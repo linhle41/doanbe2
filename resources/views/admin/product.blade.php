@@ -120,7 +120,7 @@
                 @endforeach
               </tbody>
           </table>
-          {{$productList->links('pagination::bootstrap-4')}}
+          {{$productList->appends(request()->query())->links('pagination::bootstrap-4')}}
         </div>
         <!-- /.card-body -->
       </div>
